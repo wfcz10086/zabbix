@@ -1,0 +1,16 @@
+#!/bin/bash
+#!/bin/bash
+red='\e[0;41m' # 潞矛  
+RED='\e[1;31m' 
+green='\e[0;32m' # ?色  
+GREEN='\e[1;32m' 
+yellow='\e[5;43m' # 禄?芦  
+YELLOW='\e[1;33m' 
+blue='\e[0;34m' # 6色  
+BLUE='\e[1;34m' 
+purple='\e[0;35m' # ?色  
+PURPLE='\e[1;35m' 
+cyan='\e[4;36m' # 6?色  
+CYAN='\e[1;36m' 
+WHITE='\e[1;37m' # 掳?芦
+NC='\e[0m' # 没??色
