@@ -1,0 +1,40 @@
+- hosts: host
+  tasks:
+    - name: copy script
+      copy: src=/etc/ansible/files/suse_script.sh dest=/tmp/ mode=777
+      when: ansible_distribution_version |match ("11.[0-9]")
+    - name: sh script
+      shell: sh -x /tmp/suse_script.sh
+      when: ansible_distribution_version |match ("11.[0-9]")
+    - name: copy script
+      copy: src=/etc/ansible/files/script.sh dest=/tmp/ mode=777
+      when: ansible_os_family |match ("RedHat")
+    - name: sh script
+      shell: sh -x /tmp/script.sh
+      when: ansible_os_family |match ("RedHat")
+
+    - name: copy zabbix_agent_client to client
+      copy: src=/etc/ansible/files/zabbix-agent-2.2.14-2.1.suse11.rpm dest=/usr/local/src/ mode=777
+      when: ansible_distribution_version |match ("11.[0-9]")
+    - name: install zabbix_agent_client
+      yum: name=/usr/local/src/zabbix-agent-2.2.14-2.1.suse11.rpm state=installed
+      when: ansible_distribution_version |match ("11.[0-9]")
+
+    - name: copy zabbix_agent_client to client
+      copy: src=/etc/ansible/files/zabbix-agent-3.2.4-1.el6.x86_64.rpm dest=/usr/local/src/ mode=777
+      when: ansible_distribution_version |match ("6.[0-9]")
+    - name: copy zabbix_agent_client to client
+      copy: src=/etc/ansible/files/zabbix-agent-3.2.4-2.el7.x86_64.rpm dest=/usr/local/src/ mode=777
+      when: ansible_distribution_version |match ("7.[0-9]")
+    - name: install zabbix_agent_client
+      yum: name=/usr/local/src/zabbix-agent-3.2.4-1.el6.x86_64.rpm state=installed
+      when: ansible_distribution_version |match ("6.[0-9]")
+    - name: install zabbix_agent_client
+      yum: name=/usr/local/src/zabbix-agent-3.2.4-2.el7.x86_64.rpm state=installed
+      when: ansible_distribution_version |match ("7.[0-9]")
+    - name: restart zabbix-agent
+      shell: /etc/init.d/zabbix-agent restart
+      when: ansible_distribution_version |match ("6.[0-9]")
+    - name: restart zabbix-agent
+      shell: systemctl restart zabbix-agent
+      when: ansible_distribution_version |match ("7.[0-9]")
